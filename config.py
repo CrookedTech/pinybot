@@ -17,7 +17,7 @@ ACCOUNT = ''
 PASSWORD = ''
 
 # The swf version that tinychat is currently using.
-SWF_VERSION = '0675'
+SWF_VERSION = '0677'
 # Log chat messages and events.
 CHAT_LOGGING = False
 # Show additional info/errors in console.
@@ -119,7 +119,7 @@ B_AUTO_CLOSE = False
 #
 B_ALLOW_SNAPSHOTS = True
 #
-B_BOT_REPORT_KICK = False
+B_BOT_REPORT_KICK = True
 
 ##
 #
