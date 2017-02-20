@@ -10,7 +10,7 @@ import time
 import traceback
 
 from colorama import init, Fore, Style
-
+import auth
 import user
 import config
 from rtmplib import rtmp
@@ -146,24 +146,15 @@ class TinychatRTMPClient:
 
     def login(self):
         """
-        Try to login to tinychat
-        :return True if logged in, else False
+        Login to tinychat.
+        :return: True if logged in else False
         """
+        _account = auth.Account(account=self.account, password=self.password, proxy=self._proxy)
         if self.account and self.password:
-            is_logged_in = core.web.has_cookie('pass')
-            if is_logged_in:
-                is_login_expired = core.web.is_cookie_expired('user')
-                if is_login_expired:
-                    post_login = core.post_login(self.account, self.password, proxy=self._proxy)
-                    if 'hash' in post_login['cookies']:
-                        return True
-                    return False
+            if _account.is_logged_in():
                 return True
-            post_login = core.post_login(self.account, self.password, proxy=self._proxy)
-            if 'hash' in post_login['cookies']:
-                return True
-            return False
-        return False
+            _account.login()
+        return _account.is_logged_in()
 
     def connect(self):
         """ Attempts to make a RTMP connection with the given connection parameters. """
